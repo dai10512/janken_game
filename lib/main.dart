@@ -10,8 +10,6 @@ void main() {
   );
 }
 
-const result = '勝ち';
-
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -24,49 +22,53 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class JankenPage extends ConsumerWidget {
+class JankenPage extends StatelessWidget {
   const JankenPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(context, ref) {
-    final myChoice =
-        ref.watch(mainViewModelProvider.select((value) => value.myChoice));
-    final opponentChoice = ref
-        .watch(mainViewModelProvider.select((value) => value.opponentChoice));
-    final result =
-        ref.watch(mainViewModelProvider.select((value) => value.result));
+  Widget build(context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('じゃんけん'),
       ),
-      body: Column(
-        children: [
-          _commonSpace(),
-          Text(
-            result,
-            style: const TextStyle(fontSize: 40),
-          ),
-          _commonSpace(),
-          Text(
-            opponentChoice,
-            style: const TextStyle(fontSize: 40),
-          ),
-          _commonSpace(),
-          Text(
-            myChoice,
-            style: const TextStyle(fontSize: 40),
-          ),
-          _commonSpace(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _buildJankenButton(GuChokiPa.gu),
-              _buildJankenButton(GuChokiPa.choki),
-              _buildJankenButton(GuChokiPa.pa),
-            ],
-          ),
-        ],
-      ),
+      body: Consumer(builder: (context, ref, _) {
+        
+        final myChoice =
+            ref.watch(mainViewModelProvider.select((value) => value.myChoice));
+        final opponentChoice = ref.watch(
+            mainViewModelProvider.select((value) => value.opponentChoice));
+        final result =
+            ref.watch(mainViewModelProvider.select((value) => value.result));
+
+        return Column(
+          children: [
+            _commonSpace(),
+            Text(
+              result,
+              style: const TextStyle(fontSize: 40),
+            ),
+            _commonSpace(),
+            Text(
+              opponentChoice,
+              style: const TextStyle(fontSize: 40),
+            ),
+            _commonSpace(),
+            Text(
+              myChoice,
+              style: const TextStyle(fontSize: 40),
+            ),
+            _commonSpace(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _buildJankenButton(GuChokiPa.gu),
+                _buildJankenButton(GuChokiPa.choki),
+                _buildJankenButton(GuChokiPa.pa),
+              ],
+            ),
+          ],
+        );
+      }),
     );
   }
 
