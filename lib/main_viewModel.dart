@@ -5,6 +5,11 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'main_viewModel.freezed.dart';
 
+final mainViewModelProvider =
+    StateNotifierProvider<MainViewModel, MainViewModelState>((ref) {
+  return MainViewModel();
+});
+
 @freezed
 class MainViewModelState with _$MainViewModelState {
   const factory MainViewModelState({
@@ -15,11 +20,6 @@ class MainViewModelState with _$MainViewModelState {
     int? rounds,
   }) = _MainViewModelState;
 }
-
-final mainViewModelProvider =
-    StateNotifierProvider<MainViewModel, MainViewModelState>((ref) {
-  return MainViewModel();
-});
 
 class MainViewModel extends StateNotifier<MainViewModelState> {
   MainViewModel() : super(const MainViewModelState());
