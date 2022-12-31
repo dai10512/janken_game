@@ -94,7 +94,7 @@ enum Result {
   loose,
 }
 
-extension ResultExtention on Result {
+extension ResultExtension on Result {
   static final _str = {
     Result.win: '勝ち',
     Result.draw: 'あいこ',
