@@ -53,11 +53,11 @@ class MainViewModel extends StateNotifier<MainViewModelState> {
     int totalWinCount;
 
     final rounds = state.rounds ?? 0;
-    
+
     if (rounds >= 5) {
       nextRounds = 1;
       totalWinCount = winCase ? 1 : 0;
-    } else{
+    } else {
       nextRounds = rounds + 1;
       totalWinCount = state.totalWinCount + (winCase ? 1 : 0);
     }
