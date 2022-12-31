@@ -18,7 +18,9 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$MainViewModelState {
   String get opponentChoice => throw _privateConstructorUsedError;
   String get myChoice => throw _privateConstructorUsedError;
-  String get result => throw _privateConstructorUsedError;
+  Result? get result => throw _privateConstructorUsedError;
+  int get totalWinCount => throw _privateConstructorUsedError;
+  int? get rounds => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MainViewModelStateCopyWith<MainViewModelState> get copyWith =>
@@ -31,7 +33,12 @@ abstract class $MainViewModelStateCopyWith<$Res> {
           MainViewModelState value, $Res Function(MainViewModelState) then) =
       _$MainViewModelStateCopyWithImpl<$Res, MainViewModelState>;
   @useResult
-  $Res call({String opponentChoice, String myChoice, String result});
+  $Res call(
+      {String opponentChoice,
+      String myChoice,
+      Result? result,
+      int totalWinCount,
+      int? rounds});
 }
 
 /// @nodoc
@@ -49,7 +56,9 @@ class _$MainViewModelStateCopyWithImpl<$Res, $Val extends MainViewModelState>
   $Res call({
     Object? opponentChoice = null,
     Object? myChoice = null,
-    Object? result = null,
+    Object? result = freezed,
+    Object? totalWinCount = null,
+    Object? rounds = freezed,
   }) {
     return _then(_value.copyWith(
       opponentChoice: null == opponentChoice
@@ -60,10 +69,18 @@ class _$MainViewModelStateCopyWithImpl<$Res, $Val extends MainViewModelState>
           ? _value.myChoice
           : myChoice // ignore: cast_nullable_to_non_nullable
               as String,
-      result: null == result
+      result: freezed == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Result?,
+      totalWinCount: null == totalWinCount
+          ? _value.totalWinCount
+          : totalWinCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      rounds: freezed == rounds
+          ? _value.rounds
+          : rounds // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 }
@@ -76,7 +93,12 @@ abstract class _$$_MainViewModelStateCopyWith<$Res>
       __$$_MainViewModelStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String opponentChoice, String myChoice, String result});
+  $Res call(
+      {String opponentChoice,
+      String myChoice,
+      Result? result,
+      int totalWinCount,
+      int? rounds});
 }
 
 /// @nodoc
@@ -92,7 +114,9 @@ class __$$_MainViewModelStateCopyWithImpl<$Res>
   $Res call({
     Object? opponentChoice = null,
     Object? myChoice = null,
-    Object? result = null,
+    Object? result = freezed,
+    Object? totalWinCount = null,
+    Object? rounds = freezed,
   }) {
     return _then(_$_MainViewModelState(
       opponentChoice: null == opponentChoice
@@ -103,10 +127,18 @@ class __$$_MainViewModelStateCopyWithImpl<$Res>
           ? _value.myChoice
           : myChoice // ignore: cast_nullable_to_non_nullable
               as String,
-      result: null == result
+      result: freezed == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Result?,
+      totalWinCount: null == totalWinCount
+          ? _value.totalWinCount
+          : totalWinCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      rounds: freezed == rounds
+          ? _value.rounds
+          : rounds // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -115,7 +147,11 @@ class __$$_MainViewModelStateCopyWithImpl<$Res>
 
 class _$_MainViewModelState implements _MainViewModelState {
   const _$_MainViewModelState(
-      {this.opponentChoice = '', this.myChoice = '', this.result = ''});
+      {this.opponentChoice = '',
+      this.myChoice = '',
+      this.result,
+      this.totalWinCount = 0,
+      this.rounds});
 
   @override
   @JsonKey()
@@ -124,12 +160,16 @@ class _$_MainViewModelState implements _MainViewModelState {
   @JsonKey()
   final String myChoice;
   @override
+  final Result? result;
+  @override
   @JsonKey()
-  final String result;
+  final int totalWinCount;
+  @override
+  final int? rounds;
 
   @override
   String toString() {
-    return 'MainViewModelState(opponentChoice: $opponentChoice, myChoice: $myChoice, result: $result)';
+    return 'MainViewModelState(opponentChoice: $opponentChoice, myChoice: $myChoice, result: $result, totalWinCount: $totalWinCount, rounds: $rounds)';
   }
 
   @override
@@ -141,12 +181,15 @@ class _$_MainViewModelState implements _MainViewModelState {
                 other.opponentChoice == opponentChoice) &&
             (identical(other.myChoice, myChoice) ||
                 other.myChoice == myChoice) &&
-            (identical(other.result, result) || other.result == result));
+            (identical(other.result, result) || other.result == result) &&
+            (identical(other.totalWinCount, totalWinCount) ||
+                other.totalWinCount == totalWinCount) &&
+            (identical(other.rounds, rounds) || other.rounds == rounds));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, opponentChoice, myChoice, result);
+  int get hashCode => Object.hash(
+      runtimeType, opponentChoice, myChoice, result, totalWinCount, rounds);
 
   @JsonKey(ignore: true)
   @override
@@ -160,14 +203,20 @@ abstract class _MainViewModelState implements MainViewModelState {
   const factory _MainViewModelState(
       {final String opponentChoice,
       final String myChoice,
-      final String result}) = _$_MainViewModelState;
+      final Result? result,
+      final int totalWinCount,
+      final int? rounds}) = _$_MainViewModelState;
 
   @override
   String get opponentChoice;
   @override
   String get myChoice;
   @override
-  String get result;
+  Result? get result;
+  @override
+  int get totalWinCount;
+  @override
+  int? get rounds;
   @override
   @JsonKey(ignore: true)
   _$$_MainViewModelStateCopyWith<_$_MainViewModelState> get copyWith =>

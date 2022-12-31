@@ -31,49 +31,59 @@ class JankenPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('じゃんけん'),
       ),
-      body: Consumer(builder: (context, ref, _) {
-        
-        final myChoice =
-            ref.watch(mainViewModelProvider.select((value) => value.myChoice));
-        final opponentChoice = ref.watch(
-            mainViewModelProvider.select((value) => value.opponentChoice));
-        final result =
-            ref.watch(mainViewModelProvider.select((value) => value.result));
+      body: Consumer(
+        builder: (context, ref, _) {
+          final myChoice = ref
+              .watch(mainViewModelProvider.select((value) => value.myChoice));
+          final opponentChoice = ref.watch(
+              mainViewModelProvider.select((value) => value.opponentChoice));
+          final result =
+              ref.watch(mainViewModelProvider.select((value) => value.result));
+          final rounds =
+              ref.watch(mainViewModelProvider.select((value) => value.rounds));
+          final totalWinCount = ref.watch(
+              mainViewModelProvider.select((value) => value.totalWinCount));
+          return Column(
+            children: [
+              _commonSpace(),
+              _commonTextWidget('${rounds ?? 1}回戦'),
+              _commonSpace(),
+              _commonTextWidget(result?.str ?? ''),
+              _commonSpace(),
+              _commonTextWidget(opponentChoice),
+              _commonSpace(),
+              _commonTextWidget(myChoice),
+              _commonSpace(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _buildJankenButton(GuChokiPa.gu),
+                  _buildJankenButton(GuChokiPa.choki),
+                  _buildJankenButton(GuChokiPa.pa),
+                ],
+              ),
+              if ((rounds ?? 0) >= 5) ...[
+                _commonSpace(),
+                _commonTextWidget('最終結果'),
+                _commonSpace(),
+                _commonTextWidget('$totalWinCount回勝利'),
+              ]
+            ],
+          );
+        },
+      ),
+    );
+  }
 
-        return Column(
-          children: [
-            _commonSpace(),
-            Text(
-              result,
-              style: const TextStyle(fontSize: 40),
-            ),
-            _commonSpace(),
-            Text(
-              opponentChoice,
-              style: const TextStyle(fontSize: 40),
-            ),
-            _commonSpace(),
-            Text(
-              myChoice,
-              style: const TextStyle(fontSize: 40),
-            ),
-            _commonSpace(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _buildJankenButton(GuChokiPa.gu),
-                _buildJankenButton(GuChokiPa.choki),
-                _buildJankenButton(GuChokiPa.pa),
-              ],
-            ),
-          ],
-        );
-      }),
+  Widget _commonTextWidget(String text) {
+    return Text(
+      text,
+      style: const TextStyle(fontSize: 30),
     );
   }
 
   Widget _commonSpace() {
-    return const SizedBox(height: 30);
+    return const SizedBox(height: 20);
   }
 
   Widget _buildJankenButton(GuChokiPa myChoice) {

@@ -10,7 +10,9 @@ class MainViewModelState with _$MainViewModelState {
   const factory MainViewModelState({
     @Default('') String opponentChoice,
     @Default('') String myChoice,
-    @Default('') String result,
+    Result? result,
+    @Default(0) int totalWinCount,
+    int? rounds,
   }) = _MainViewModelState;
 }
 
@@ -42,15 +44,30 @@ class MainViewModel extends StateNotifier<MainViewModelState> {
     final looseCase = looseCase1 || looseCase2 || looseCase3;
 
     final result = winCase
-        ? Result.win.str
+        ? Result.win
         : looseCase
-            ? Result.loose.str
-            : Result.draw.str;
+            ? Result.loose
+            : Result.draw;
+
+    int nextRounds;
+    int totalWinCount;
+
+    final rounds = state.rounds ?? 0;
+    
+    if (rounds >= 5) {
+      nextRounds = 1;
+      totalWinCount = winCase ? 1 : 0;
+    } else{
+      nextRounds = rounds + 1;
+      totalWinCount = state.totalWinCount + (winCase ? 1 : 0);
+    }
 
     state = state.copyWith(
       myChoice: myChoice.icon,
       opponentChoice: opponentChoice.icon,
       result: result,
+      rounds: nextRounds,
+      totalWinCount: totalWinCount,
     );
   }
 }
@@ -61,7 +78,7 @@ enum GuChokiPa {
   pa,
 }
 
-extension GuChokiPaExtention on GuChokiPa {
+extension GuChokiPaExtension on GuChokiPa {
   static final _icon = {
     GuChokiPa.gu: '✊',
     GuChokiPa.choki: '✌️',
